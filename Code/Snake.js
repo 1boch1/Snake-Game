@@ -67,6 +67,10 @@ function gameplay()
     {
         posY = 0;
     }
+    
+    //Move
+
+    snake.push({x: posX, y: posY});
 
     //Refresh screen
 
@@ -99,10 +103,6 @@ function gameplay()
            document.getElementById("s").innerHTML = "0";
         }
     }
-    
-    //Move
-
-    snake.push({x: posX, y: posY});
 
     //Set the snake length to len
 
