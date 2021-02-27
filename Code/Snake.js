@@ -10,6 +10,8 @@ window.onload = function()
     context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+var audio = new Audio('../sounds/food.mp3');
+
 //Coordinates
 
 posX = 5;
@@ -32,7 +34,7 @@ gs = 40;
 //Snake
 
 snake = [];
-len = 2;
+len = 4;
 
 //Food coords
 
@@ -43,6 +45,8 @@ function gameplay()
 {
     posX += dirX;
     posY += dirY;
+
+    //Screen constrains
 
     if(posX < 0)
     {
@@ -64,34 +68,70 @@ function gameplay()
         posY = 0;
     }
 
+    //Refresh screen
+
     context.fillStyle = "black";
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    context.fillStyle = "red";
+    //Snake color
+
+    context.fillStyle = "white";
 
     for(let i = 0; i < snake.length; i++) 
     {
-        context.fillRect(snake[i].x * gs, snake[i].y * gs, bs, bs); //(x, y, w, h)
+        //Draw snake
+
+        if(i == snake.length-1)
+        {
+            context.fillStyle = "yellow";
+            context.fillRect(snake[i].x * gs, snake[i].y * gs, bs, bs); //(x, y, w, h)
+            context.fillStyle = "white";
+        }
+
+        else context.fillRect(snake[i].x * gs, snake[i].y * gs, bs, bs); //(x, y, w, h)
+
+        //If you hit the head
 
         if(snake[i].x == posX && snake[i].y == posY) 
         {
-           len = 2; //
+           len = 3; 
+           document.getElementById("bs").innerHTML = Number(document.getElementById("s").innerHTML) > Number(document.getElementById("bs").innerHTML) ? document.getElementById("s").innerHTML : document.getElementById("bs").innerHTML; 
+           document.getElementById("s").innerHTML = "0";
         }
     }
+    
+    //Move
 
     snake.push({x: posX, y: posY});
 
-    if(snake.length > len) snake.shift();
+    //Set the snake length to len
+
+    while(snake.length > len) snake.shift();
+
+    //Create food
 
     if(foodX == posX && foodY == posY)
     {
+        audio.play();
+        document.getElementById("s").innerHTML = (Number(document.getElementById("s").innerHTML) + 1).toString();
+        
         len++;
 
-        foodX = Math.floor(Math.random() * 11) + 1 
-        foodY = Math.floor(Math.random() * 11) + 1 
+        foodX = Math.floor(Math.random() * 11) + 1; 
+        foodY = Math.floor(Math.random() * 11) + 1;
+
+        //Food can't spawn on the snake
+
+        while(snake.some(e => e.x == foodX && e.y == foodY))
+        {
+            foodX = Math.floor(Math.random() * 11) + 1; 
+            foodY = Math.floor(Math.random() * 11) + 1;
+        }
     }
 
-    context.fillStyle="yellow";
+    //Draw food
+
+    context.fillStyle = "red";
     context.fillRect(foodX * gs, foodY * gs, bs, bs);
 }
 
