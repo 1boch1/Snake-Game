@@ -1,6 +1,6 @@
 # Snake Game
 
-Simple Snake in JS
+Snake remake in JS.
 
 Use arrows to move
 
