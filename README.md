@@ -2,10 +2,11 @@
 
 Snake remake in JS.
 
-Use arrows to move
+Use arrows to move.
 
-Demo: https://1boch1.github.io/Snake-Game/Code/canvas.html
+Demo here: https://1boch1.github.io/Snake-Game/Code/canvas.html
 
 
-![snake](https://user-images.githubusercontent.com/69087218/109543582-c6a8da00-7ac6-11eb-9e47-fd38480ef822.png)
+![snake](https://user-images.githubusercontent.com/69087218/109805961-60d26480-7c24-11eb-840d-bd6ca398da8c.png)
+
 
